@@ -105,8 +105,8 @@ Please see the [limitations](https://neetcode.io/courses/full-stack-dev/21) sect
 
 ### References:
 
-Firebase Auth: https://firebase.google.com/docs/auth
-Cloud Storage Signed URLs: https://cloud.google.com/storage/docs/access-control/signed-urls
-Pub/Sub Push subscriptions: https://cloud.google.com/pubsub/docs/push
-Using Pub/Sub with Cloud Storage: https://cloud.google.com/storage/docs/pubsub-notifications
+Firebase Auth: https://firebase.google.com/docs/auth   
+Cloud Storage Signed URLs: https://cloud.google.com/storage/docs/access-control/signed-urls   
+Pub/Sub Push subscriptions: https://cloud.google.com/pubsub/docs/push   
+Using Pub/Sub with Cloud Storage: https://cloud.google.com/storage/docs/pubsub-notifications   
 Using Pub/Sub with Cloud Run: https://cloud.google.com/run/docs/tutorials/pubsub
