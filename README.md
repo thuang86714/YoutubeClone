@@ -8,7 +8,6 @@ All credit to neetcode.io(https://neetcode.io/courses/lessons/design-youtube)
 ### Introduction
 
 This document designs a simplified YouTube clone.
-
 The goal of this project is not to build a 1 to 1 clone of YouTube, but rather to build a rough skeleton where the core functionality of YouTube is implemented.
 
 We are focused on keeping the design as simple as possible, while still addressing some scalability tradeoffs. We are focused on learning, not building a production ready system.
@@ -16,7 +15,6 @@ We are focused on keeping the design as simple as possible, while still addressi
 ### Background
 
 YouTube is a video sharing platform that allows users to upload, view, rate, share, and comment on videos.
-
 The scope of YouTube is very large, such that even "trivial" features like rating and commenting on videos are actually quite complex at this scale (1B+ daily active users). For this reason, we will be focusing mostly on uploading videos, and a bit on viewing videos.
 
 ### Requirements
@@ -29,7 +27,7 @@ Users can view individual videos (signed in or not)
 
 ### High Level Design
 
-![alt text](https://github.com/thuang86714/YoutubeClone/raw/readMe/resources/images/public.avif "High Level Design")
+![High Level Design](https://github.com/thuang86714/YoutubeClone/raw/readMe/resources/images/public.avif "High Level Design")
 
 ### Video Storage (Cloud Storage)
 
