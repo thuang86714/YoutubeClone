@@ -22,7 +22,7 @@ Users can view a list of uploaded videos (signed in or not)
 Users can view individual videos (signed in or not)
 
 High Level Design
-![alt text](https://github.com/thuang86714/YoutubeClone/raw/main/resources/images/public.avif "High Level Design")
+![alt text](https://github.com/thuang86714/YoutubeClone/raw/readMe/resources/images/public.avif "High Level Design")
 
 Video Storage (Cloud Storage)
 Google Cloud Storage will be used to host the raw and processed videos. This is a simple, scalable, and cost effective solution for storing and serving large files.
