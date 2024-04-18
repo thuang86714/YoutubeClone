@@ -1,0 +1,61 @@
+name: build
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+permissions:
+  contents: read
+  pull-requests: read
+  checks: write
+
+jobs:
+  lint-test-be-ts:
+    name: Lint and Test Backend TypeScript Code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'  # Specify the Node.js version compatible with your project
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./backend
+
+      - name: Run ESLint
+        run: npx eslint ./
+        working-directory: ./backend
+
+      - name: Run Jest Tests
+        run: npx jest --passWithNoTests
+        working-directory: ./backend
+
+  lint-test-fe-ts:
+    name: Lint and Test Frontend TypeScript Code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'  # Specify the Node.js version compatible with your project
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./frontend
+
+      - name: Run ESLint
+        run: npx eslint ./
+        working-directory: ./frontend
+
+      - name: Run Jest Tests
+        run: npx jest --passWithNoTests
+        working-directory: ./frontend
