@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - ciVideoProSVC
-    paths:
-      - 'videoProcessSVC/**'
+    # paths:
+    #   - 'videoProcessSVC/**'
 
 permissions:
    contents: read
