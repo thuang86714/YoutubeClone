@@ -3,7 +3,7 @@ name: Build and Push Docker image for Video Process Service
 on:
   push:
     branches:
-      - ciVideoSVC
+      - ciVideoProSVC
     paths:
       - 'videoProcessSVC/**'
 
