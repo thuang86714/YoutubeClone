@@ -1,11 +1,11 @@
 name: Build and Push Docker image for Video Process Service
 
 on:
-  push:
+  pull_request:
     branches:
-      - ciVideoProSVC
-    # paths:
-    #   - 'videoProcessSVC/**'
+      - main
+    paths:
+      - 'videoProcessSVC/**'
 
 permissions:
    contents: read
@@ -29,7 +29,7 @@ jobs:
               working-directory: ./videoProcessSVC
 
             - name: Run ESLint
-              run: npx eslint ./ --fix --debug
+              run: npx eslint ./ --fix
               working-directory: ./videoProcessSVC
 
             - name: Login to Docker Hub
