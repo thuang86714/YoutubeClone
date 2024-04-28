@@ -29,7 +29,7 @@ jobs:
               working-directory: ./videoProcessSVC
 
             - name: Run ESLint
-              run: npx eslint ./ --fix --ignore-pattern 'eslint.config.mjs'
+              run: npx eslint ./ --fix
               working-directory: ./videoProcessSVC
 
             - name: Login to Docker Hub
