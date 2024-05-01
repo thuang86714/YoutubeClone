@@ -29,12 +29,12 @@ export function convertVideo(rawVideoName: string, processedVideoName: string) {
   return new Promise<void>((resolve, reject) => {
     ffmpeg(`${localRawVideoPath}/${rawVideoName}`)
       .outputOptions("-vf", "scale=-1:360") // 360p
-      .on("end", function () {
+      .on("end", () => {
         console.log("Processing finished successfully");
         resolve();
       })
-      .on("error", function (err: any) {
-        console.log("An error occurred: " + err.message);
+      .on("error", (err) => {
+        console.log(`An error occurred: ${err.message}`);
         reject(err);
       })
       .save(`${localProcessedVideoPath}/${processedVideoName}`);
@@ -69,10 +69,9 @@ export async function uploadProcessedVideo(fileName: string) {
   const bucket = storage.bucket(processedVideoBucketName);
 
   // Upload video to the bucket
-  await storage.bucket(processedVideoBucketName)
-    .upload(`${localProcessedVideoPath}/${fileName}`, {
+  await bucket.upload(`${localProcessedVideoPath}/${fileName}`, {
       destination: fileName,
-    });
+  });
   console.log(
     `${localProcessedVideoPath}/${fileName} uploaded to gs://${processedVideoBucketName}/${fileName}.`
   );
@@ -119,7 +118,7 @@ function deleteFile(filePath: string): Promise<void> {
           console.log(`File deleted at ${filePath}`);
           resolve();
         }
-      });
+      })
     } else {
       console.log(`File not found at ${filePath}, skipping delete.`);
       resolve();
