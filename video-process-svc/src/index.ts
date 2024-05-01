@@ -8,6 +8,7 @@ import {
   convertVideo,
   setupDirectories
 } from './storage';
+import {isVideoNew, setVideo} from './firestore';
 
 // Create the local directories for videos
 setupDirectories();
@@ -19,6 +20,7 @@ app.use(express.json());
 app.post('/process-video', async (req, res) => {
 
   // Get the bucket and filename from the Cloud Pub/Sub message
+  //TODO: refactor to keep it clean
   let data;
   try {
     const message = Buffer.from(req.body.message.data, 'base64').toString('utf8');
@@ -31,8 +33,19 @@ app.post('/process-video', async (req, res) => {
     return res.status(400).send('Bad Request: missing filename.');
   }
 
-  const inputFileName = data.name;
+  const inputFileName = data.name;// In format of <UID>-<DATE>.<EXTENSION>
   const outputFileName = `processed-${inputFileName}`;
+  const videoId = inputFileName.split('.')[0];//<UID>-<DATE>
+
+  if (!isVideoNew(videoId)) {
+    return res.status(400).send('Bad Request: video already processing or processed.');
+  } else {
+    setVideo(videoId, {
+      id: videoId,
+      uid: videoId.split('-')[0],
+      status: 'processing'
+    });
+  }
 
   // Download the raw video from Cloud Storage
   await downloadRawVideo(inputFileName);
@@ -45,11 +58,17 @@ app.post('/process-video', async (req, res) => {
       deleteRawVideo(inputFileName),
       deleteProcessedVideo(outputFileName)
     ]);
-    return res.status(500).send('Processing failed');
+    console.error(err);
+    return res.status(500).send('Internal Server Error: video processing failed.');
   }
   
   // Upload the processed video to Cloud Storage
   await uploadProcessedVideo(outputFileName);
+
+  await setVideo(videoId, {
+    status: 'processed',
+    filename: outputFileName
+  });
 
   await Promise.all([
     deleteRawVideo(inputFileName),
@@ -61,5 +80,6 @@ app.post('/process-video', async (req, res) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(
+      `Video processing service listening at http://localhost:${port}`);
 });
